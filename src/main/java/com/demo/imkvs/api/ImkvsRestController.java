@@ -81,8 +81,10 @@ public class ImkvsRestController {
 			@RequestParam(ServiceConstants.KEY) String key) {
 		LOGGER.entry(namespace, key);
 		boolean isDeleted = serviceDelegate.delete(namespace, key);
-		ResponseEntity<String> response = ResponseEntity
-				.ok(isDeleted ? ServiceConstants.SUCCESS : ServiceConstants.FAILURE);
+		ResponseEntity<String> response = ResponseEntity.ok(ServiceConstants.FAILURE);
+		if (isDeleted) {
+			response = ResponseEntity.ok(ServiceConstants.SUCCESS);
+		}
 		return LOGGER.traceExit(response);
 	}
 
